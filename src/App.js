@@ -5,49 +5,6 @@ import queryString from 'query-string'
 let defaultStyle = {
   color: '#fff'
 }
-let fakeServer = {
-  user: {
-    name: 'Chizzy',
-    playlists: [
-      {
-        name: 'Favorites',
-        songs: 
-        [
-          {name:'FIrst one', duration: 1345},
-          {name:'second One', duration: 1236},
-          {name:'THIRD', duration: 7000}
-        ]
-      },
-      {
-        name: 'not Favorites',
-        songs: 
-        [
-          {name:'FIrst one', duration: 1345},
-          {name:'second One', duration: 1236},
-          {name:'THIRD', duration: 7000}
-        ]
-      },
-      {
-        name: 'Weekly',
-        songs: 
-        [
-          {name:'FIrst one', duration: 1345},
-          {name:'second One', duration: 1236},
-          {name:'THIRD', duration: 7000}
-        ]
-      },
-      {
-        name: 'New',
-        songs: 
-        [
-          {name:'FIrst one', duration: 1345},
-          {name:'second One', duration: 1236},
-          {name:'THIRD', duration: 7000}
-        ]
-      }
-    ]
-  }
-}
 
 class PlaylistCounter extends Component {
   render() {
@@ -115,7 +72,9 @@ class App extends Component {
   componentDidMount() {
     let parsed = queryString.parse(window.location.search)
     let accessToken = parsed.access_token
-
+    if (!accessToken)
+     return
+    
     fetch('https://api.spotify.com/v1/me',{
       headers:{'Authorization': 'Bearer ' + accessToken}
     }).then(response => response.json())
